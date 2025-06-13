@@ -52,4 +52,4 @@ const path = require('path');
 // const givenpath = "D:\Riot Games\Riot Client\RiotGamesApi.dll"
 // console.log(path.parse(givenpath))
 
-console.log(path.join(__dirname, "/index.js"))
+// console.log(path.join(__dirname, "/index.js"))
