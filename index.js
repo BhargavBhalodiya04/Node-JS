@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 // fs.writeFileSync("log.txt", "I Am Bhargav");
 
 // Writing A File
@@ -39,4 +40,16 @@ const fs = require('fs');
 // fs.cp("log.txt" , "newAsyncFile.txt",(err, data) =>{
 //     if(err) console.log(err)
 //         else console.log("Copy Successfull")
-// })
+// }}
+
+
+// URL Module
+
+// const myUrl = new URL("https://meet.google.com/vhn-prex-ahy")
+// console.log(myUrl)
+
+// // Path Module
+// const givenpath = "D:\Riot Games\Riot Client\RiotGamesApi.dll"
+// console.log(path.parse(givenpath))
+
+console.log(path.join(__dirname, "/index.js"))
