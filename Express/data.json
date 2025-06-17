@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "first_name": "Amit",
+    "last_name": "Sharma",
+    "work_profile": "Software Developer",
+    "gender": "Male",
+    "email": "amit.sharma@example.com"
+  },
+  {
+    "id": 2,
+    "first_name": "Neha",
+    "last_name": "Patel",
+    "work_profile": "UI/UX Designer",
+    "gender": "Female",
+    "email": "neha.patel@example.com"
+  },
+  {
+    "id": 3,
+    "first_name": "Raj",
+    "last_name": "Verma",
+    "work_profile": "Data Analyst",
+    "gender": "Male",
+    "email": "raj.verma@example.com"
+  },
+  {
+    "id": 4,
+    "first_name": "Priya",
+    "last_name": "Singh",
+    "work_profile": "Project Manager",
+    "gender": "Female",
+    "email": "priya.singh@example.com"
+  },
+  {
+    "id": 5,
+    "first_name": "Karan",
+    "last_name": "Mehta",
+    "work_profile": "DevOps Engineer",
+    "gender": "Male",
+    "email": "karan.mehta@example.com"
+  }
+]
