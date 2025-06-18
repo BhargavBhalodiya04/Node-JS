@@ -1,7 +1,7 @@
 const express = require("express");
 const port  = 3001;
 const path = require("path")
-// const fs = 
+const fs = require("fs");
 const data = require("./data.json");
 const { type } = require("os");
 const app = express();
@@ -57,25 +57,37 @@ app.get("/" , (req, res) => {
 //     res.sendFile(regFilePath)
 // })
 
-app.get("/" , (req, res) => {
-    res.send("<h1 style='color:red;'>Welcome to the Homepage</h1>");
-} )
 
 app.use((req, res, next) => {
-    console.log(req.url)
+    let log = req.url
+    fs.appendFile("log.txt", `\n ${log}`, (err) => {
+        if (err) console.log(err)
+    })
     next();
 })
+// app.use((req, res, next) => {
+//     console.log("I am coming from another middleware")
+//     // res.send("I got rejected from middleware 2")
+//     next()
+// })
 
-app.use((req, res, next) => {
-    console.log("Second middleware")
-    res.send("I got rejection")
+app.get("/", (req, res) => {
+    res.json({
+        success: true, route: "/"
+
+    })
 })
-
 app.get("/api/users", (req, res) => {
-    res.json({success : true, route : "/api/users"})
+    res.json({ success: true, route: "/api/users" })
+})
+app.get("/api/users/shrey", (req, res) => {
+    res.send("I am coming from shrey route")
+})
+app.get("/api/users/:id", (req, res) => {
+    res.send(req.params.id)
 })
 
-app.listen(port , () => {
-    console.log(`http://localhost:${port}`);
-    console.log(regFilePath)
+
+app.listen(port, () => {
+    console.log(`http://localhost:${port}`)
 })
