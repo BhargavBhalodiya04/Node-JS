@@ -1,56 +1,90 @@
-const express = require("express");
+const express = require("express")
 const mongoose = require("mongoose")
-const port = 3001;
-const app = express();
+const MONGO_URI = "mongodb://127.0.0.1:27017/sampleDatabaseFS2"
+const PORT = 3001;
 
-// Database Conncetion
-mongoose.connect("mongodb://127.0.0.1:27017/sampleDatabaseFS2")
-.then(() => console.log("Database Connection established"))
-.catch((err) => console.log(err));
+const app = express()
+// Middleware
+app.use(express.json());
 
 
-// Schema
-const userSchema = new mongoose.Schema(
-    {
-        id : {type : Number, unique : true , required : true},
-        userName : String,
-        age : Number
-    }
-)
+// DB Connection -->
+mongoose.connect(MONGO_URI)
+.then(() => {
+    console.log("DB connection est...")
+})
+.catch((error) => {
+    console.log("error encountered : ", error)
+})
+// Schema -->
+const userSchema = new mongoose.Schema({
+    id: {type : Number, unique : true, required : true},
+    userName : String,
+    age: Number
+})
 
-// Model
-const userModel = mongoose.model("user" , userSchema)
+// Model -->
+const userModel = mongoose.model("user", userSchema)
 
-// Routes
-app.get("/", (req,res) => {
+app.get("/", (req, res) => {
     res.send("<h1>HOME PAGE</h1>")
 })
-
-app.get("/api/users", async (req,res) => {
+app.get("/api/users", async (req, res) => {
     const allData = await userModel.find();
-    res.json(allData); 
+    res.json(allData);
+})
+app.get("/api/users/:id", async(req, res) => {
+    const userId = parseInt(req.params.id)
+    const singleData = await userModel.findOne({id : userId})
+    if(!singleData) {
+        res.json({status : false, message : "No user found"})
+    }else {
+        res.json(singleData)
+    }
+})
+app.post("/api/users", async(req, res) => {
+    const userData = req.body
+    const newUserData = await new userModel(userData)
+    newUserData.save();
+    res.json(newUserData);
+})
+app.put("/api/users/:id", async(req, res) => {
+    const userId = parseInt(req.params.id)
+    const userBody = req.body
+    const replacedUser = await userModel.findOneAndReplace(
+        {id : userId},
+        userBody,
+        {new : true}
+    )
+    res.json({success : true, replacedUser})
+})
+app.patch("/api/users/:id", async (req, res) => {
+    const userId = parseInt(req.params.id)
+    const userData = req.body;
+    const updatedUser = await userModel.findOneAndUpdate(
+        {id : userId},
+        {$set : userData},
+        {new : true, runValidators : true}
+    )
+    res.json(updatedUser)
+})
+app.delete("/api/users/:id", async(req, res) => {
+    const userId = parseInt(req.params.id)
+    const deletedUser = await userModel.findOneAndDelete({id : userId})
+
+    res.json({status : true, response : "user deleted", user : deletedUser})
 })
 
-app.get("/api/users:id" , (req, res) => {
 
+app.listen(PORT, () => {
+    console.log(`http://localhost:${PORT}`)
 })
 
-app.post("/api/users", (req,res) => {
 
-})
+// connect your BE and FE (Homepage, login,signup)
+// sign up -> send data to mdb -> redirect to sign in 
+// sign in -> fetch from mdb -> redirect to home page
+// if email exist -> throw error "email already exist"
 
-app.put("/api/users:id" , (req, res) => {
 
-})
-
-app.patch("/api/users:id" , (req, res) => {
-
-})
-app.delete("/api/users:id" , (req, res) => {
-
-})
-
-// Server
-app.listen(port , () => {
-    console.log("Server started at port  : ", port);
-})
+// db.col.updateOne({}, {$set : {id : 5}}, {new: true, runValidator})
