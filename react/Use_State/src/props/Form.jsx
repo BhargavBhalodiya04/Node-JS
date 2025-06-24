@@ -4,14 +4,17 @@ import '../App.css';
 const Form = () => {
   const [name, setName] = useState('');
   const [pass, setPass] = useState('');
+  const [userData, setUserData] = useState('')
 
   const handleSubmit = (event) => {
     event.preventDefault(); 
-    console.log("User ID:", name);
-    console.log("Password:", pass);
-  };
+    // console.log("User ID:", name);
+    // console.log("Password:", pass);
+    setUserData(`User ID : ${name}, Password : ${pass}`)
+};
 
   return (
+    <>
     <form onSubmit={handleSubmit}>
       <input
         onChange={(e) => setName(e.target.value)}
@@ -35,6 +38,8 @@ const Form = () => {
         className="input"
       />
     </form>
+    <p>{userData}</p>
+    </>
   );
 };
 
