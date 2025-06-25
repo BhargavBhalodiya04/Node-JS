@@ -8,10 +8,11 @@ import Form from './props/Form'
 const App = () => {
   return (
     <>
-      {/* <Use_State/> */}
+      {/* <Use_State/>  */}
       {/* <Header/> */}
       {/* <Footer/>  */}
-      <Form/>
+      {/* <Form/> */}
+      
     </>
   )
 }
