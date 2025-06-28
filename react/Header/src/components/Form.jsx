@@ -22,11 +22,11 @@ const FeedbackForm = () => {
     e.preventDefault();
     // Add your form validation or submission logic here
     console.log(formData);
-      if(feedback.length > 20){
-        alert("Submitted Successfully");
-      }else{
-        alert("Should be greater then 20");
-      }
+    //   if(feedback.length > 20){
+    //     alert("Submitted Successfully");
+    //   }else{
+    //     alert("Should be greater then 20");
+    //   }
   };
 
 
